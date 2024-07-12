@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block conteudo %}
+        <div id="Centro">
+            <P id="p1">
+                <h1>
+                    Conversor YouTube para MP3
+                </h1>
+                <div class="r1">
+                    <form action="/autenticarmp3">
+                        <input id="url" type="text" name="link" placeholder="  Cole a URL aqui!">
+                        <button class="pesquisar" type="submit">Enter</button> 
+                    </form>
+                </div>
+            </P>
+
+        </div>
+{% endblock %}

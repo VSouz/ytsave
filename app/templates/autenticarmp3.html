@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block conteudo %}
+
+<div id="Centro">
+    <P id="p1">
+        <h1>
+            Conversor YouTube para MP4
+        </h1>
+        <div class="r1">
+            <!-- <form action="/autenticarmp4">
+                <input id="url" type="text" name="link" placeholder="  Cole a URL aqui!">
+                <button class="pesquisar" type="submit">Enter</button> 
+            </form> -->
+            {% if info %}
+            <div id="options">
+                <div id="details">
+                    <img src="{{ info.img }}" alt="Miniatura do vídeo" width="300px" height="auto">
+                    <h3> Title: {{ info.title }}</h3>
+                    Duration: {{ info.duration }}
+                    
+                </div>
+                <div id="table">
+                    <table id="table">
+                        <tr>
+                            <th scope="col"> Quality    </th>
+                            <th scope="col"> Size    </th>
+                            <th scope="col"> Download    </th>
+                        </tr>
+                        <tr>
+                            <th scope="row"> .webm (160 Kbps)</th>
+                            <th> {{ info.audio160 }} </th>
+                            <th>
+                                <form action="{{ url_for ('baixaraudio160') }}" method="POST" >
+                                    <input type="hidden" name="audio160" value="{{ info.url }}">
+                                    <button type="submit" > Download </button> 
+                                </form>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th scope="row"> .webm (70 kbps)</th>
+                            <th> {{ info.audio70 }} </th>
+                            <th>                                
+                                <form action="{{ url_for ('baixaraudio70') }}" method="POST">
+                                    <input type="hidden" name="audio70" value="{{ info.url }}">
+                                    <button type="submit" > Download </button> 
+                                </form>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th scope="row"> .m4a (50 Kbps)</th>
+                            <th> {{ info.audio50 }} </th>
+                            <th>
+                                <form action="{{ url_for ('baixaraudio50') }}" method="POST">
+                                        <input type="hidden" name="audio50" value="{{ info.url }}">
+                                        <button type="submit" > Download </button> 
+                                    </form>
+                            </th>
+                        </tr>
+                    </table>
+                    <br>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </P>
+</div>
+
+{% endblock %}

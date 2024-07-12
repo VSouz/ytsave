@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block conteudo %}
+
+<div id="Centro">
+    <P id="p1">
+        <h1>
+            Conversor YouTube para MP4
+        </h1>
+        <div class="r1">
+            <!-- <form action="/autenticarmp4">
+                <input id="url" type="text" name="link" placeholder="  Cole a URL aqui!">
+                <button class="pesquisar" type="submit">Enter</button> 
+            </form> -->
+            {% if info %}
+            <div id="options">
+                <div id="details">
+                    <img src="{{ info.img }}" alt="Miniatura do vídeo" width="300px" height="auto">
+                    <h3> Title: {{ info.title }}</h3>
+                    Duration: {{ info.duration }}
+                    
+                </div>
+                <div id="table">
+                    <table id="table">
+                        <tr>
+                            <th scope="col"> Quality    </th>
+                            <th scope="col"> Size    </th>
+                            <th scope="col"> Download    </th>
+                        </tr>
+                        <tr>
+                            <th scope="row"> 360p</th>
+                            <th> {{ info.SizeFast }} </th>
+                            <th>                                
+                                <form action="{{ url_for ('baixarVideo') }}" method="POST">
+                                    <input type="hidden" name="video360" value="{{ info.url }}">
+                                    <button type="submit" > Download </button> 
+                                </form>
+                            </th>
+                        </tr>
+                        <!-- <tr>
+                            <th scope="row"> 1080p</th>
+                            <th> {{ info.SizeBest }} </th>
+                            <th>
+                                <form action="{{ url_for ('baixarVideoBest') }}" method="POST"  onsubmit="return confirmDownload();">
+                                        <input type="hidden" name="video1080" value="{{ info.url }}">
+                                        <button type="submit" > Download </button> 
+                                    </form>
+                            </th>
+                            <script>
+                                function confirmDownload() {
+                                    return confirm("O Download pode demorar, deseja continuar?");
+                                }
+                            </script>
+                        </tr> -->
+                    </table>
+                    <br>
+                    <!-- <li>Baixar em 1080p é um processo lento: 
+                        Devido à alta qualidade do conteúdo 
+                    </li>
+                    <br>
+                    <li>
+                        Uso excessivo pode levar ao bloqueio:
+                        O YouTube limita a quantidade de 
+                        downloads de alta resolução que 
+                        um usuário pode realizar 
+                        em um curto período de tempo.
+                    </li> -->
+                    <br>
+                </div>
+                
+            </div>
+            {% endif %}
+        </div>
+    </P>
+</div>
+
+{% endblock %}

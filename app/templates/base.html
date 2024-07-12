@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='Ativo-3.ico') }}">
+    <title>YT Save MP4</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}"  >
+</head>
+<body>
+    <div id="home">
+        <div id="nav">
+            <img src="{{ url_for('static', filename='logo2.png') }}" width="100px">
+            <nav>
+                <a  href="/mp3" class="pesquisar">Youtube para MP3</a>
+                <a href="/home" class="pesquisar">Youtube para MP4</a>
+            </nav>
+        </div>
+        {% block conteudo %}
+        {% endblock %}
+        <footer>
+            Create by Vinicius Souza
+        </footer>
+    </div>
+</body>
+</html>
