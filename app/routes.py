@@ -59,9 +59,9 @@ def baixarVideoBest():
 
 def baixarVideo():
     link = request.form.get('video360')
-    baixar.baixar_video(link)
-    # mime_type, _ = mimetypes.guess_type(baixado)
-    return render_template('mp4.html')
+    baixado = baixar.baixar_video(link)
+    mime_type, _ = mimetypes.guess_type(baixado)
+    return send_file(baixado, as_attachment=True, mimetype=mime_type)
 
 
 @app.route('/baixaraudio50', methods=['POST'])
