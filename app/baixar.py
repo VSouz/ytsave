@@ -127,7 +127,7 @@ def baixar_video(url):
         }
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             info_dict = ydl.extract_info(url, download=True)
-        return send_file(info_dict, as_attachment=True, mimetype='video/mp4')
+        return send_file(info_dict, download_name= info_dict.get('title',None),as_attachment=True, mimetype='video/mp4')
 
 def baixar_audio(url, bitrate):
 
