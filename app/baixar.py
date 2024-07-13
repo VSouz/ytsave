@@ -123,6 +123,7 @@ def baixar_video(url):
      with tempfile.TemporaryDirectory() as tempdir:
         ydl_opts = {
             'outtmpl': os.path.join(tempdir, '%(title)s.%(ext)s'),
+            'noplaylist': True
         }
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             info_dict = ydl.extract_info(url, download=True)
