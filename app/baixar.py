@@ -1,6 +1,7 @@
 import os
 import tempfile
 import shutil
+from flask import send_file
 from moviepy.editor import *
 import yt_dlp
 import cloudconvert
@@ -125,7 +126,7 @@ def baixar_video(url):
         }
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             info_dict = ydl.extract_info(url, download=True)
-        return info_dict
+        return send_file(info_dict, as_attachment=True, mimetype='video/mp4')
 
 def baixar_audio(url, bitrate):
 
