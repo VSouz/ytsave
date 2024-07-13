@@ -120,10 +120,6 @@ def baixar_video(url):
 
     pasta = 'videos'  # Pasta "videos" está uma pasta acima da função
 
-    if os.path.isdir(pasta):
-        shutil.rmtree(pasta)
-
-    os.mkdir(pasta)
 
     ydl_opts = {
         'noplaylist': True,
