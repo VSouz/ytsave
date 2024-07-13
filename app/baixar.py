@@ -1,4 +1,5 @@
 import os
+import tempfile
 import shutil
 from moviepy.editor import *
 import yt_dlp
@@ -118,24 +119,13 @@ def baixarVideoBest(url):
 
 def baixar_video(url):
 
-    pasta = 'videos'  # Pasta "videos" está uma pasta acima da função
-
-
-    ydl_opts = {
-        'noplaylist': True,
-        'outtmpl': '\\videos\\%(title)s.%(ext)s'  # Caminho correto usando barras duplas
-    }
-    
-    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-        info_dict = ydl.extract_info(url, download=True)
-        video_title = info_dict.get('title', None)
-        video_ext = info_dict.get('ext', 'mp4')  # Default to mp4 if extension not found
-    
-    # Construa o caminho completo para o arquivo baixado
-    file_name = f"{video_title}.{video_ext}"
-    file_path = os.path.join('..\\videos', file_name)  # Constrói o caminho correto usando os.path.join
-    
-    return file_path
+     with tempfile.TemporaryDirectory() as tempdir:
+        ydl_opts = {
+            'outtmpl': os.path.join(tempdir, '%(title)s.%(ext)s'),
+        }
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+            info_dict = ydl.extract_info(url, download=True)
+        return info_dict
 
 def baixar_audio(url, bitrate):
 
