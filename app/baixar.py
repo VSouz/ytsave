@@ -107,38 +107,6 @@ def download_file(url, local_filename):
                 f.write(chunk)
     return local_filename
 
-def baixarVideoBest(url):
-    pasta = 'videos'
-
-    if os.path.isdir(pasta):
-        shutil.rmtree(pasta)
-
-    os.mkdir(pasta)  
-
-    video_temp_path = os.path.join(pasta, 'temp_video.mp4')
-    audio_temp_path = os.path.join(pasta, 'temp_audio.mp4')
-
-    ydl_opts_video = {
-        'format': 'bestvideo[ext=mp4]',
-        'outtmpl': video_temp_path
-    }
-
-    ydl_opts_audio = {
-        'format': 'bestaudio[abr<=160k][ext=mp4]',
-        'outtmpl': audio_temp_path
-    }
-
-    with yt_dlp.YoutubeDL(ydl_opts_video) as ydl:
-        ydl.download([url])
-
-    with yt_dlp.YoutubeDL(ydl_opts_audio) as ydl:
-        ydl.download([url])
-
-    final_path = os.path.join(pasta, 'final_video.mp4')
-
-    
-    return final_path
-
 
 def baixar_video(url):
 
