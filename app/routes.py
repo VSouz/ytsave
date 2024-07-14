@@ -39,6 +39,7 @@ def autenticarmp4():
     link = request.args.get('link')
 
     if link:
+        baixar.clear_bucket(baixar.bucket_name)
         info = baixar.details(link)
 
         return render_template('autenticarmp4.html', info=info )

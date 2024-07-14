@@ -1,10 +1,56 @@
 import os
 import shutil
 from moviepy.editor import *
+from botocore.exceptions import NoCredentialsError
 import yt_dlp
-import cloudconvert
+import boto3
 import requests
 
+
+s3 = boto3.client(
+    's3',
+    aws_access_key_id=os.getenv('AWS_ACCESS_KEY_ID'),
+    aws_secret_access_key=os.getenv('AWS_SECRET_ACCESS_KEY'),
+    region_name='sa-east-1'
+)
+
+bucket_name = 'ytsave-storage2'
+
+def generate_presigned_url(bucket_name, object_name, expiration=3600):
+    try:
+        response = s3.generate_presigned_url('get_object',
+                                             Params={'Bucket': bucket_name,
+                                                     'Key': object_name},
+                                             ExpiresIn=expiration)
+    except Exception as e:
+        print(e)
+        return None
+    return response
+
+
+def upload_to_aws(local_file, bucket, s3_file):
+    try:
+        s3.upload_file(local_file, bucket, s3_file)
+        print("Upload Successful")
+        return True
+    except FileNotFoundError:
+        print("The file was not found")
+        return False
+    except NoCredentialsError:
+        print("Credentials not available")
+        return False
+
+
+
+def clear_bucket(bucket):
+    try:
+        bucket_objects = s3.list_objects_v2(Bucket=bucket)
+        if 'Contents' in bucket_objects:
+            for obj in bucket_objects['Contents']:
+                s3.delete_object(Bucket=bucket, Key=obj['Key'])
+        print("Bucket cleared")
+    except Exception as e:
+        print(f"Error clearing bucket: {e}")
 
 
 def convert_seconds(seconds):
@@ -117,7 +163,10 @@ def baixar_video(url):
     file_name = f"{video_title}.{video_ext}"
     file_path = os.path.join('..\\videos', file_name)  
     
-    return file_path
+    if upload_to_aws(file_path, bucket_name, file_name):
+        return f"s3://{bucket_name}/{file_name}"
+    else:
+        return None
 
 def baixar_audio(url, bitrate):
 
